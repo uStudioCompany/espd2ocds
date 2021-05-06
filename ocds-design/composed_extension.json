@@ -1,0 +1,31 @@
+{
+  "name": {
+    "en": "OCDS for the implementation of ESPD-EDM"
+  },
+  "description": {
+    "en": "Collects, into a single extension, the extensions that compose the OCDS for the implementation of ESPD-EDM"
+  },
+  "documentationUrl": {
+    "en": "https://ustudiocompany.github.io/espd2ocds"
+  },
+  "compatibility": [
+    "1.1"
+  ],
+  "schemas": [
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_requirements_extension/master/release-schema.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_metrics_extension/master/release-schema.json",
+    "https://raw.githubusercontent.com/eOCDS-Extensions/eOCDS-evidences/master/release-schema.json",
+    "https://raw.githubusercontent.com/eOCDS-Extensions/eOCDS_espd_add-ons/master/release-schema.json",
+    "prozorro_add-ons.json"
+  ],
+  "codelists": [
+    "dataType.csv",
+    "evidenceTypes.csv",
+    "relatesTo.csv",
+    "responseSource.csv"
+  ],
+  "contactPoint": {
+    "name": "uStudio Company",
+    "email": "lab@ustudio.company"
+  }
+}
