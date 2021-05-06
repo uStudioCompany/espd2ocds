@@ -1,0 +1,719 @@
+{
+  "properties": {
+    "criteria": {
+      "title": "Criteria",
+      "description": "A list of criteria on which either bidders or items will be judged, evaluated or assessed.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Criterion"
+      }
+    },
+    "bids": {
+      "title": "Bids",
+      "description": "The bid section is used to publish summary statistics, and where applicable, individual bid information.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Bid"
+      }
+    },
+    "targets": {
+      "title": "Targets",
+      "description": "Any target metrics for this results of this contracting process.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Metric"
+      }
+    },
+    "metrics": {
+      "title": "Metrics",
+      "description": "Reported results from the delivery of the contracted goods, works or services.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Metric"
+      }
+    },
+    "awards": {
+      "title": "",
+      "description": "The award section is used to announce any awards issued for this tender. There can be multiple awards made. Releases can contain all, or a subset, of these awards. A related award block is required for every contract block, as the award contains information on the suppliers.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Award"
+      }
+    }
+  },
+  "definitions": {
+    "Award": {
+      "properties": {
+        "agreedMetrics": {
+          "type": "array",
+          "title": "Agreed metrics",
+          "description": "Any target metrics set out as part of the contract award",
+          "items": {
+            "$ref": "#/definitions/Metric"
+          }
+        }
+      }
+    },
+    "Bid": {
+      "properties": {
+        "requirementResponses": {
+          "title": "Requirement responses",
+          "description": "If the requirements extension is also in use, the detailed responses of this bid to the tender requirements can be specified here.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RequirementResponse"
+          }
+        }
+      }
+    },
+    "Criterion": {
+      "type": "object",
+      "title": "Criterion",
+      "description": "A criterion on which either bidders or items will be judged, evaluated or assessed.",
+      "properties": {
+        "id": {
+          "title": "Identifier",
+          "description": "The identifier for this criterion. It must be unique and cannot change within the Open Contracting Process it is part of (defined by a single ocid).",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "description": "A title for this criterion.",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "A description of this criterion. Structured information should be provided in its other fields.",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "description": "Source of response to the requirements specified in the criterion. For example, responses might be submitted by tenderers or by an assessment committee at the procuringEntity.",
+          "type": "string",
+          "codelist": "responseSource.csv",
+          "openCodelist": false
+        },
+        "relatesTo": {
+          "title": "Related schema element",
+          "description": "The schema element that the criterion judges, evaluates or assesses. For example, the criterion might be defined against items or against bidders.",
+          "type": "string",
+          "codelist": "relatesTo.csv",
+          "openCodelist": false
+        },
+        "relatedItem": {
+          "title": "Related item",
+          "description": "Where relatesTo = \"item\" this field must be populated with the id of the item in this tender section which the criterion relates to. Where relatesTo <> \"item\" this field should be omitted.",
+          "type": "string"
+        },
+        "classification": {
+          "title": "",
+          "decription": "",
+          "$ref": "#/definitions/Classification"
+        },
+        "additionalClassifications": {
+          "title": "",
+          "decription": "",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Classification"
+          }
+        },
+        "legislation": {
+          "title": "",
+          "decription": "",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LegislationItem"
+          }
+        },
+        "requirementGroups": {
+          "title": "Requirement groups",
+          "description": "A list of requirement groups for this Criterion. A criterion is satisfied by one or more requirement groups being met. A requirement group is met when all requirements in the group are satisfied.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RequirementGroup"
+          }
+        }
+      }
+    },
+    "RequirementGroup": {
+      "type": "object",
+      "title": "Requirement group",
+      "description": "A requirement group is a set of requirements that must be fulfilled together to validate a criterion.",
+      "properties": {
+        "id": {
+          "title": "Identifier",
+          "description": "The identifier for this requirement group. It must be unique and cannot change within the Open Contracting Process it is part of",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "A description of this requirement group. Structured information should be provided in the requirements array.",
+          "type": "string"
+        },
+        "requirements": {
+          "title": "Requirements",
+          "description": "A list requirements which must all be satisfied for the requirement group to be met.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Requirement"
+          }
+        }
+      }
+    },
+    "Requirement": {
+      "type": "object",
+      "title": "Requirement",
+      "description": "An atomic requirement. Requirements can specify the expected value that the response has to contain, or a range of threshold values within which the response has to fit in. The requirement may apply to a certain period of time.",
+      "properties": {
+        "id": {
+          "title": "Requirement identifier",
+          "description": "The identifier for this requirement. It must be unique and cannot change within the Open Contracting Process it is part of (defined by a single ocid). See the [identifier guidance](http://standard.open-contracting.org/latest/en/schema/identifiers/) for further details.",
+          "type": "string"
+        },
+        "title": {
+          "title": "Requirement title",
+          "description": "The title of this atomic requirement.",
+          "type": "string"
+        },
+        "description": {
+          "title": "Requirement description",
+          "description": "A free text description for this atomic requirement.",
+          "type": "string"
+        },
+        "dataType": {
+          "title": "Requirement datatype",
+          "description": "The data type in which the requirement response must be provided.",
+          "type": "string",
+          "codelist": "dataType.csv",
+          "openCodelist": false
+        },
+        "expectedValue": {
+          "title": "Expected value",
+          "description": "Used to state the requirement when the response must be particular value.",
+          "type": [
+            "string",
+            "integer",
+            "number",
+            "boolean"
+          ]
+        },
+        "minValue": {
+          "title": "Minimum value",
+          "description": "Used to state the lower bound of the requirement when the response must be within a certain range.",
+          "type": [
+            "integer",
+            "number"
+          ]
+        },
+        "maxValue": {
+          "title": "Maximum value",
+          "description": "Used to state the upper bound of the requirement when the response must be within a certain range.",
+          "type": [
+            "integer",
+            "number"
+          ]
+        },
+        "period": {
+          "title": "Period",
+          "description": "Used to specify a particular period the requirement applies to, for example the bidder's turnover in a given year.",
+          "$ref": "#/definitions/Period"
+        },
+        "unit": {
+          "title": "",
+          "description": "",
+          "$ref": "#/definitions/Unit"
+        },
+        "eligibleEvidences": {
+          "title": "",
+          "description": "",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EligibleEvidence"
+          }
+        },
+        "relatedFeature": {
+          "title": "Related Features",
+          "description": "",
+          "type": ""
+        }
+      }
+    },
+    "RequirementResponse": {
+      "type": "object",
+      "title": "Requirement Response",
+      "description": "An assertion that responds to a single requirement. A requirement response provides the value for the requirement and may provide the period to which it applies.",
+      "properties": {
+        "id": {
+          "title": "Identifier",
+          "description": "The identifier for this requirement response. It must be unique and cannot change within the Open Contracting Process it is part of (defined by a single ocid). See the [identifier guidance](http://standard.open-contracting.org/latest/en/schema/identifiers/) for further details.",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "description": "A title for this requirement response.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "title": "Description",
+          "description": "A description of this requirement response. Structured information should be provided in its other fields.",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "description": "The value of this requirement response. The value must be of the type defined in the requirement.dataType field.",
+          "type": [
+            "string",
+            "integer",
+            "number",
+            "boolean"
+          ]
+        },
+        "period": {
+          "title": "Period",
+          "description": "The period which the requirement response is applicable to.",
+          "$ref": "#/definitions/Period"
+        },
+        "requirement": {
+          "title": "Related requirement",
+          "description": "The id and title of the requirement which the response is applicable to.",
+          "$ref": "#/definitions/RequirementReference"
+        },
+        "relatedTenderer": {
+          "title": "Related tenderer",
+          "description": "Where this requirement response relates to a tenderer and is provided by the buyer or procuring entity this field should be used to reference the entry in the parties section for the tenderer the response relates to.",
+          "$ref": "#/definitions/OrganizationReference"
+        },
+        "relatedItem": {
+          "title": "Related Item",
+          "description": "",
+          "type": "string"
+        },
+        "evidences": {
+          "title": "",
+          "description": "",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Evidence"
+          }
+        }
+      }
+    },
+    "RequirementReference": {
+      "type": "object",
+      "title": "Requirement reference",
+      "description": "Used to cross reference a requirement.",
+      "properties": {
+        "id": {
+          "title": "Requirement ID",
+          "description": "The id of the requirement which the response is applicable to.",
+          "type": "string"
+        },
+        "title": {
+          "title": "Requirement title",
+          "description": "The title of the requirement which the response is applicable to.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Classification": {},
+    "LegislationItem": {
+      "title": "",
+      "description": "",
+      "type": "onject",
+      "properties": {
+        "version": {
+          "title": "",
+          "description": "",
+          "type": "string"
+        },
+        "identifier": {
+          "title": "",
+          "description": "",
+          "$ref": "#/definitions/Identifier"
+        },
+        "type": {
+          "title": "",
+          "description": "",
+          "type": "string",
+          "enum": [
+            "NATIONAL_LEGISLATION"
+          ]
+        },
+        "article": {
+          "title": "",
+          "description": "",
+          "type": "string"
+        }
+      }
+    },
+    "EligibleEvidence": {
+      "title": "Evidance",
+      "description": "The data set describing some evidence",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Identifier",
+          "description": "Unique identifier for this evidence",
+          "type": "string"
+        },
+        "title": {
+          "title": "",
+          "description": "",
+          "type": ""
+        },
+        "description": {
+          "title": "",
+          "description": "",
+          "type": ""
+        },
+        "type": {
+          "title": "",
+          "description": "",
+          "type": "string",
+          "codelist": "evidenceTypes.csv",
+          "opencodelist": true
+        },
+        "relatedDocument": {
+          "title": "",
+          "description": "",
+          "$ref": "#/definitions/Document"
+        }
+      }
+    },
+    "Evidence": {
+      "title": "",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "",
+          "description": "",
+          "type": ""
+        },
+        "type": {
+          "title": "",
+          "description": "",
+          "type": "string",
+          "codelist": "evidenceTypes.csv",
+          "opencodelist": true
+        },
+        "title": {
+          "title": "",
+          "description": "",
+          "type": ""
+        },
+        "description": {
+          "title": "",
+          "description": "",
+          "type": ""
+        },
+        "relatedDocument": {
+          "title": "",
+          "description": "",
+          "$ref": "#/definitions/Document"
+        }
+      }
+    },
+    "Identifier": {
+      "title": "Identifier",
+      "type": "object",
+      "properties": {
+        "scheme": {
+          "title": "Scheme",
+          "description": "Organization identifiers be drawn from an existing identification scheme. This field is used to indicate the scheme or codelist in which the identifier will be found. This value should be drawn from the Organization Identification",
+          "type": "string"
+        },
+        "id": {
+          "title": "ID",
+          "description": "The identifier of the organization in the selected scheme.",
+          "type": "string"
+        },
+        "legalName": {
+          "title": "Legal Name",
+          "description": "The legally registered name of the organization.",
+          "type": "string"
+        },
+        "uri": {
+          "title": "URI",
+          "description": "A URI to identify the organization, such as those provided by Open Corporates (http://www.opencorporates.com) or some other relevant URI provider. This is not for listing the website of the organization: that can be done through the url field of the Organization contact point.",
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "Document": {
+      "type": "object",
+      "title": "Document",
+      "description": "Links to, or descriptions of, external documents can be attached at various locations within the standard. Documents may be supporting information, formal notices, downloadable forms, or any other kind of resource that should be made public as part of full open contracting.",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "title": "ID",
+          "description": "A local, unique identifier for this document. This field is used to keep track of multiple revisions of a document through the compilation from release to record mechanism.",
+          "type": "string"
+        },
+        "documentType": {
+          "title": "Document type",
+          "description": "A classification of the document described taken from the [Codelists#Document types]. Values from the provided codelist should be used wherever possible, though extended values can be provided if the codelist does not have a relevant code.",
+          "type": "string",
+          "codelist": "http://standard.open-contracting.org/1.1-dev/en/schema/codelists/#document-type",
+          "openCodelist": true
+        },
+        "title": {
+          "title": "Title",
+          "description": "The document title.",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "A short description of the document. We recommend descriptions do not exceed 250 words. In the event the document is not accessible online, the description field can be used to describe arrangements for obtaining a copy of the document.",
+          "type": "string"
+        },
+        "url": {
+          "title": "URL",
+          "description": " direct link to the document or attachment. The server providing access to this document should be configured to correctly report the document mime type.",
+          "type": "string",
+          "format": "uri"
+        },
+        "datePublished": {
+          "title": "Date published",
+          "description": "The date on which the document was first published. This is particularly important for legally important documents such as notices of a tender.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateModified": {
+          "title": "Date modified",
+          "description": "Date that the document was last modified",
+          "type": "string",
+          "format": "date-time"
+        },
+        "format": {
+          "title": "Format",
+          "description": "The format of the document taken from the [IANA Media Types code list](http://www.iana.org/assignments/media-types/), with the addition of one extra value for 'offline/print', used when this document entry is being used to describe the offline publication of a document. Use values from the template column. Links to web pages should be tagged 'text/html'.",
+          "type": "string"
+        },
+        "language": {
+          "title": "Language",
+          "description": "Specifies the language of the linked document using either two-digit ISO 639-1 or extended BCP47 language tags.",
+          "type": "string"
+        },
+        "relatedLots": {
+          "title": "Related lot(s)",
+          "description": "If this document relates to a particular lot, provide the identifier(s) of the related lot(s) here.",
+          "type": [
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "author": {
+          "title": "Author",
+          "description": "The name of the author of these documents. Include the name of individuals and/or organizations responsible. For example, when a technical specification was written by a consultant, include the name and organization of the consultant. ",
+          "type": "string"
+        }
+      }
+    },
+    "OrganizationReference": {
+      "title": "Organization reference",
+      "description": "The id and name of the party being referenced. Used to cross-reference to the parties section",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the party being referenced. This must match the name of an entry in the parties section.",
+          "title": "Organization name"
+        },
+        "id": {
+          "type": "string",
+          "description": "The id of the party being referenced. This must match the id of an entry in the parties section.",
+          "title": "Organization ID"
+        }
+      }
+    },
+    "Period": {
+      "title": "Period",
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "title": "Start date",
+          "description": "The start date for the period",
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "title": "End date",
+          "description": "The end date for the period",
+          "type": "string",
+          "format": "date-time"
+        },
+        "maxExtentDate": {
+          "description": "The period cannot be extended beyond this date.",
+          "format": "date-time",
+          "title": "Maximum extent",
+          "type": "string"
+        },
+        "durationInDays": {
+          "description": "The maximum duration of this period in days. Where a start and end date are given, this field is optional, and should reflect the difference between those two days.",
+          "title": "Duration (days)",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "duration": {
+          "title": "Duration",
+          "description": "The duration of the period reflected in ISO format",
+          "type": "string",
+          "format": "ISO"
+        }
+      }
+    },
+    "Unit": {
+      "title": "Unit",
+      "description": "A description of the unit in which the supplies, services or works are provided (e.g. hours, kilograms) and the unit-price. For comparability, an established list of units can be used.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "description": "Name of the unit",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "description": "The monetary [Value] of a single unit.",
+          "$ref": "#/definitions/Value"
+        },
+        "scheme": {
+          "title": "Scheme",
+          "description": "The list from which units of measure identifiers are taken. Use of the scheme 'UNCEFACT' for the UN/CEFACT Recommendation 20 list of 'Codes for Units of Measure Used in International Trade' is recommended.",
+          "type": "string"
+        },
+        "id": {
+          "title": "ID",
+          "description": "The identifier from the codelist referenced in the scheme property. For example, with UNCEFACT, this is the value of the 'Common Code' column. From this identifier, applications can look-up the human readable name or symbol for this unit of measure. ",
+          "type": "string"
+        },
+        "uri": {
+          "title": "URI",
+          "description": "If the scheme used provide a machine-readable URI for this unit of measure, this can be given.",
+          "format": "uri",
+          "type": "string"
+        }
+      }
+    },
+    "Value": {
+      "title": "Value",
+      "type": "object",
+      "description": "Financial value description",
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "description": "Amount as a number.",
+          "type": "number"
+        },
+        "currency": {
+          "title": "Currency",
+          "description": "The currency for each amount should always be specified using the uppercase 3-letter currency code from ISO4217.",
+          "type": "string"
+        },
+        "valueAddedTaxIncluded": {
+          "title": "A true/false field to indicate whether the value tax was included",
+          "type": "boolean"
+        }
+      }
+    },
+    "Metric": {
+      "type": "object",
+      "title": "Metric",
+      "description": "Metrics are used to set out targets and results from a contracting process. During the planning and tender sections, a metric indicates the anticipated results. In award and contract sections it indicates the awarded/contracted results. In the implementation section it is used to provide updates on actually delivered results, also known as outputs.",
+      "properties": {
+        "id": {
+          "title": "Identifier",
+          "description": "An identifier for this metric. In some cases this may be drawn from a codelist of metrics required for this type of contracting process, or in other instances may be an arbitrary identifier.",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "description": "The title of this metric",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "A short description of the metric. This may include short details of measurement methods.",
+          "type": "string"
+        },
+        "observations": {
+          "type": "array",
+          "title": "Observations",
+          "description": "An array of target or actual values for this metric.",
+          "items": {
+            "$ref": "#/definitions/Observation"
+          }
+        }
+      }
+    },
+    "Observation": {
+      "type": "object",
+      "title": "Observation",
+      "description": "An actual or target observation. Observations should include either a value (for financial metrics) or measure (for other metrics). ",
+      "properties": {
+        "id": {
+          "title": "Identifier",
+          "description": "A local identifier for this specific observation. This may be an arbitrary identifier, or could be a composite of the metric identifier, and the date and other dimensions of this observation.",
+          "type": "string"
+        },
+        "period": {
+          "title": "Period",
+          "description": "The period over which this observation is measured.",
+          "$ref": "#/definitions/Period"
+        },
+        "value": {
+          "title": "Value",
+          "description": "For financial metrics, the value of this forecast, target or actual observation.",
+          "$ref": "#/definitions/Value"
+        },
+        "measure": {
+          "title": "Measure",
+          "description": "For non-financial metrics, the measure of this forecast, target or actual observation. Measures may be provided as free text or numerical values.",
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "unit": {
+          "title": "Unit",
+          "description": "Unit",
+          "$ref": "#/definitions/Unit"
+        },
+        "dimensions": {
+          "type": "object",
+          "title": "Dimensions",
+          "description": "Any number of dimensions can be recorded within this object. Dimensions names should follow the camelCase conventions of OCDS.",
+          "patternProperties": {
+            "^.*": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "notes": {
+          "title": "Notes",
+          "description": "Any notes on this observation. This may include clarifying information.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
