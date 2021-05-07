@@ -14,9 +14,12 @@
   "schemas": [
     "https://raw.githubusercontent.com/open-contracting-extensions/ocds_requirements_extension/master/release-schema.json",
     "https://raw.githubusercontent.com/open-contracting-extensions/ocds_metrics_extension/master/release-schema.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_selectionCriteria_extension/master/release-schema.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_bid_extension/master/release-schema.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_lots_extension/master/release-schema.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_awardCriteria_extension/master/release-schema.json",
     "https://raw.githubusercontent.com/eOCDS-Extensions/eOCDS-evidences/master/release-schema.json",
-    "https://raw.githubusercontent.com/eOCDS-Extensions/eOCDS_espd_add-ons/master/release-schema.json",
-    "prozorro_add-ons.json"
+    "https://raw.githubusercontent.com/eOCDS-Extensions/eOCDS_espd_add-ons/master/release-schema.json"
   ],
   "codelists": [
     "dataType.csv",
