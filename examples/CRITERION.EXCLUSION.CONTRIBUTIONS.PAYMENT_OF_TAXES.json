@@ -1,0 +1,61 @@
+{
+  "criteria": [
+    {
+      "id": "b61bbeb7-690e-4a40-bc68-d6d4ecfaa3d4",
+      "title": "Payment of taxes",
+      "description": "Has the economic operator breached its obligations relating to the payment of taxes, both in the country in which it is established and in Member State of the contracting authority or contracting entity if other than the country of establishment?",
+      "source": "tenderer",
+      "classification": {
+        "scheme":"ESPD-2.1.1",
+        "id":"CRITERION.EXCLUSION.CONTRIBUTIONS.PAYMENT_OF_TAXES"
+      },
+      "relatedTo": "tenderer",
+      "requirementGroups": [
+        {
+          "id": "53c9aad8-dc80-48f8-85d9-755c2aab8e95",
+          "requirements": [
+            {
+              "id": "c753a2c5-59e6-4970-b6eb-27224e96bf76",
+              "title": "No",
+              "dataType": "boolean",
+              "expectedValue": false
+            }
+          ]
+        },
+        {
+          "id": "f8499787-f9f8-4355-95e2-9784426f4d7b",
+          "requirements": [
+            {
+              "id": "53c9aad8-dc80-48f8-85d9-755c2aab8e95",
+              "title": "Yes",
+              "dataType": "boolean",
+              "expectedValue": true
+            },
+            {
+              "id": "e6b21867-95b5-4549-8180-f4673219b179",
+              "title": "Country or member state concerned",
+              "dataType": "string"
+            },
+            {
+              "id": "e6b21867-95b5-4549-8180-f4673219b178",
+              "title": "Amount concerned",
+              "dataType": "number"
+            },
+            {
+              "id": "e6b21867-95b5-4549-8180-f4673219b177",
+              "title": "Has the economic operator fulfilled its obligations by paying or entering into a binding arrangement with a view to paying the taxes contributions due, including, where applicable, any interest accrued or fines?",
+              "dataType": "boolean",
+              "eligibleEvidences":[
+                {
+                  "id":"53c9aad8-dc80-48f8-85d9-755c2aab8e95",
+                  "description":"Please describe the undertaken actions",
+                  "type":"document"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
