@@ -1,68 +1,171 @@
 {
   "properties": {
-    "criteria": {
-      "title": "Criteria",
-      "description": "A list of criteria on which either bidders or items will be judged, evaluated or assessed.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Criterion"
-      }
+    "tender": {
+      "title":"",
+      "description":"",
+      "$ref":"#/definitions/Tender"
     },
-    "bids": {
-      "title": "Bids",
-      "description": "The bid section is used to publish summary statistics, and where applicable, individual bid information.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Bid"
-      }
-    },
-    "targets": {
-      "title": "Targets",
-      "description": "Any target metrics for this results of this contracting process.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Metric"
-      }
-    },
-    "metrics": {
-      "title": "Metrics",
-      "description": "Reported results from the delivery of the contracted goods, works or services.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Metric"
-      }
-    },
-    "awards": {
+    "submissions": {
       "title": "",
-      "description": "The award section is used to announce any awards issued for this tender. There can be multiple awards made. Releases can contain all, or a subset, of these awards. A related award block is required for every contract block, as the award contains information on the suppliers.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Award"
-      }
-    }
-  },
-  "definitions": {
-    "Award": {
+      "description": "",
+      "type": "object",
       "properties": {
-        "agreedMetrics": {
+        "details": {
+          "title": "",
+          "description": "",
           "type": "array",
-          "title": "Agreed metrics",
-          "description": "Any target metrics set out as part of the contract award",
           "items": {
-            "$ref": "#/definitions/Metric"
+            "$ref": "#/definitions/Submission"
           }
         }
       }
     },
-    "Bid": {
+    "qualifications": {
+      "title": "",
+      "description": "",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Qualification"
+      }
+    }
+  },
+  "definitions": {
+    "AwardCriteria": {
+      "title": "Award criteria",
+      "description": "Information about the award criteria.",
+      "type": "object",
       "properties": {
-        "requirementResponses": {
-          "title": "Requirement responses",
-          "description": "If the requirements extension is also in use, the detailed responses of this bid to the tender requirements can be specified here.",
+        "weightingDescription": {
+          "title": "Complicated weighting description",
+          "description": "When the weighting cannot be expressed per criterion, the mathematical equation (or other description) that expresses the complicated (e.g. non-linear) weighting.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "orderRationale": {
+          "title": "Justification for order of importance",
+          "description": "The justification for only indicating the award criteria's order of importance, not their weighting.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "criteria": {
+          "title": "Award criteria",
+          "description": "The award criteria.",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/RequirementResponse"
+            "$ref": "#/definitions/AwardCriterion"
           }
+        }
+      }
+    },
+    "AwardCriterion": {
+      "title": "Award criterion",
+      "description": "Information about the award criterion.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The aspect of the bid that the criterion concerns.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "codelist": "awardCriterionType.csv",
+          "openCodelist": true
+        },
+        "name": {
+          "title": "Name",
+          "description": "The name of the criterion.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "title": "Description",
+          "description": "The description of the criterion.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "numbers": {
+          "title": "Numbers",
+          "description": "Numbers linked to the criterion.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AwardCriterionNumber"
+          }
+        }
+      }
+    },
+    "AwardCriterionNumber": {
+      "title": "Award criterion number",
+      "description": "Information about a number linked to an award criterion.",
+      "type": "object",
+      "properties": {
+        "number": {
+          "title": "Number",
+          "description": "The number.",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "weight": {
+          "title": "Weight",
+          "description": "Whether the number is a type of weight.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "codelist": "criterionWeight.csv",
+          "openCodelist": false,
+          "enum": [
+            "percentageExact",
+            "percentageRangeMiddle",
+            "decimalExact",
+            "decimalRangeMiddle",
+            "pointsExact",
+            "pointsRangeMiddle",
+            "order",
+            null
+          ]
+        },
+        "fixed": {
+          "title": "Fixed",
+          "description": "Whether the number is a fixed value.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "codelist": "awardCriterionFixed.csv",
+          "openCodelist": false,
+          "enum": [
+            "total",
+            "unit",
+            null
+          ]
+        },
+        "threshold": {
+          "title": "Threshold",
+          "description": "Whether the number is a type of threshold.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "codelist": "criterionThreshold.csv",
+          "openCodelist": false,
+          "enum": [
+            "minimumScore",
+            "maximumBids",
+            null
+          ]
         }
       }
     },
@@ -224,6 +327,9 @@
           "description": "",
           "$ref": "#/definitions/Unit"
         },
+        "status":{},
+        "datePublished":{},
+        "dateModified":{},
         "eligibleEvidences": {
           "title": "",
           "description": "",
@@ -231,11 +337,6 @@
           "items": {
             "$ref": "#/definitions/EligibleEvidence"
           }
-        },
-        "relatedFeature": {
-          "title": "Related Features",
-          "description": "",
-          "type": ""
         }
       }
     },
@@ -322,7 +423,48 @@
         }
       }
     },
-    "Classification": {},
+    "Classification": {
+      "title": "Classification",
+      "type": "object",
+      "properties": {
+        "scheme": {
+          "title": "Scheme",
+          "description": "An classification should be drawn from an existing scheme or list of codes. This field is used to indicate the scheme/codelist from which the classification is drawn.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "codelist": "http://standard.open-contracting.org/1.1-dev/en/schema/codelists/#item-classification-scheme",
+          "openCodelist": true
+        },
+        "id": {
+          "title": "ID",
+          "description": "The classification code drawn from the selected scheme.",
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "description": {
+          "title": "Description",
+          "description": "A textual description or title for the code.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uri": {
+          "title": "URI",
+          "description": "A URI to identify the code. In the event individual URIs are not available for items in the identifier scheme this value should be left blank.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        }
+      }
+    },
     "LegislationItem": {
       "title": "",
       "description": "",
@@ -662,6 +804,258 @@
         }
       }
     },
+    "Qualification": {
+      "title": "Award",
+      "description": "An award for the given procurement. There may be more than one award per contracting process e.g. because the contract is split amongst different providers, or because it is a standing offer.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Award ID",
+          "description": "The identifier for this award. It must be unique and cannot change within the Open Contracting Process it is part of (defined by a single ocid)",
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "internalId": {
+          "title": "",
+          "description": "",
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "title": {
+          "title": "Title",
+          "description": "Award title",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "title": "Description",
+          "description": "Award description",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "title": "Award status",
+          "description": "The current status of the award drawn from the qualificationStatus codelist",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "pending",
+            "active",
+            "cancelled",
+            "unsuccessful"
+          ],
+          "codelist": "",
+          "openCodelist": false
+        },
+        "date": {
+          "title": "Award date",
+          "description": "The date of the contract award. This is usually the date on which a decision to award was made.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "candidates": {
+          "title": "Candidates",
+          "description": "The suppliers awarded this award. If different suppliers have been awarded different items of values, these should be split into separate award blocks.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrganizationReference"
+          },
+          "uniqueItems": true
+        },
+        "documents": {
+          "title": "Documents",
+          "description": "All documents and attachments related to the award, including any notices.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Document"
+          },
+          "uniqueItems": true
+        },
+        "requirementResponses": {
+          "type": "array",
+          "mergeStrategy": "arrayMergeById",
+          "mergeOptions": {
+            "idRef": "id"
+          },
+          "items": {
+            "$ref": "#/definitions/RequirementResponse"
+          },
+          "unqiueItems": true
+        },
+        "statusDetails": {
+          "title": "Status details",
+          "description": "Additional details of an award status.",
+          "type": "string",
+          "codelist": "",
+          "openCodelist": false
+        },
+        "relatedSubmission": {
+          "title": "Related Submission",
+          "description": "Where bid details are used, a cross reference to the entry in the bids array to which this award relates. Provide the bid identifier here",
+          "type": [
+            "string",
+            "integer"
+          ]
+        }
+      }
+    },
+    "Tender":{
+      "title":"",
+      "description":"",
+      "properties":{
+        "criteria": {
+          "title": "Criteria",
+          "description": "A list of criteria on which either bidders or items will be judged, evaluated or assessed.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Criterion"
+          }
+        },
+        "conversions": {
+            "title": "Conversions",
+            "description": "A list of weightings for the used criteria or applicable options",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Conversion"
+            }
+          },
+        "targets": {
+          "title": "Targets",
+          "description": "Any target metrics for this results of this contracting process.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Metric"
+          }
+        },
+        "selectionCriteria": {
+          "title": "Selection criteria",
+          "description": "Information about the conditions for participation in a procedure.",
+          "$ref": "#/definitions/SelectionCriteria"
+        },
+        "lots":{
+          "title":"",
+          "description":"",
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/Lot"
+          }
+        }
+      }
+    },
+    "Lot": {
+      "properties": {
+        "secondStage": {
+          "title": "Second stage",
+          "description": "Information about the second stage of a two-stage procedure (e.g. a restricted procedure, a competitive procedure with negotiation, a competitive dialogue or an innovation partnership).",
+          "$ref": "#/definitions/SecondStage"
+        },
+        "selectionCriteria": {
+          "title": "Selection criteria",
+          "description": "Information about the conditions for participation in a lot.",
+          "$ref": "#/definitions/SelectionCriteria"
+        },
+        "awardCriteria": {
+          "title": "Award criteria",
+          "description": "Information about the award criteria for the lot.",
+          "$ref": "#/definitions/AwardCriteria"
+        }
+      }
+    },
+    "SelectionCriteria": {
+      "title": "Selection criteria",
+      "description": "Information about conditions for participation.",
+      "type": "object",
+      "properties": {
+        "criteria": {
+          "title": "Selection criteria",
+          "description": "The selection criteria.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SelectionCriterion"
+          },
+          "wholeListMerge": true,
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "description": {
+          "title": "Description",
+          "description": "The description of the criteria used to select the economic operators who will be allowed to bid.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "SelectionCriterion": {
+      "title": "Selection criterion",
+      "description": "Information about the selection criterion.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the criterion.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "technical",
+            "economic",
+            "suitability",
+            "other",
+            null
+          ],
+          "codelist": "selectionCriterionType.csv",
+          "openCodelist": false
+        },
+        "description": {
+          "title": "Description",
+          "description": "The description of the criterion.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "minimum": {
+          "title": "Minimum value or level",
+          "description": "The minimum value or level of compliance a candidate needs to meet in order to participate.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "appliesTo": {
+          "title": "Applies to",
+          "description": "Whether the criterion applies to suppliers, subcontractors, or both.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "supplier",
+              "subcontractor"
+            ]
+          },
+          "codelist": "appliesTo.csv",
+          "openCodelist": false
+        }
+      }
+    },
     "Observation": {
       "type": "object",
       "title": "Observation",
@@ -712,6 +1106,179 @@
           "title": "Notes",
           "description": "Any notes on this observation. This may include clarifying information.",
           "type": "string"
+        }
+      }
+    },
+    "Submission": {
+      "title": "Bid",
+      "description": "For representing a bid in response to the tender or qualification stage in this contracting process.",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "title": "ID",
+          "description": "A local identifier for this bid",
+          "type": [
+            "string"
+          ]
+        },
+        "date": {
+          "title": "Date",
+          "description": "The date when this bid was received.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "status": {
+          "title": "Status",
+          "description": "The status of the bid, drawn from the bidStatus codelist",
+          "type": [
+            "string",
+            "null"
+          ],
+          "TODO": "EMBED CODELIST"
+        },
+        "candidates": {
+          "title": "Tenderer",
+          "description": "The [OrganizationReference] for party, or parties, responsible for this bid. This should provide a name and identifier, cross-referenced to an entry in the parties array at the top level of the release.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/OrganizationReference"
+          }
+        },
+        "documents": {
+          "title": "Documents",
+          "description": "Any [Document] and attachment related to the bid and its evaluation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Document"
+          },
+          "uniqueItems": true
+        },
+        "requirementResponses": {
+          "TODO": "ADD REQUIREMENT RESPONSE SECTION TO REQUIREMENTS EXTENSION",
+          "type": "array",
+          "mergeStrategy": "arrayMergeById",
+          "description": "A set of [RequirementResponse] relevant to the requirements requested under Contract Notice",
+          "mergeOptions": {
+            "idRef": "id"
+          },
+          "items": {
+            "$ref": "#/definitions/RequirementResponse"
+          },
+          "unqiueItems": true
+        }
+      }
+    },
+    "Organizationreference":{},
+    "Conversion": {
+      "title": "Conversion",
+      "description": "Conversion is used to describe conversions and its coefficients applicable for specific value received for requirement or observation",
+      "properties": {
+        "id": {
+          "title": "Identifier",
+          "description": "An identifier for this conversion.",
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "relatesTo": {
+          "title": "Related schema element",
+          "description": "The schema element that the conversion applies. For example, the conversion may be defined against a requirement or against a metric.",
+          "type": "string",
+          "openCodelist": false,
+          "codelist": "conversionRelatesTo.csv",
+          "enum": [
+            "requirement",
+            "observation"
+          ]
+        },
+        "relatedItem": {
+          "title": "Related item",
+          "description": "Where 'relatesTo' is not empty this field must be populated with the id of the item in this tender section which the conversion relates to.",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Conversion rationale",
+          "description": "The free-text rationale of using of this conversion",
+          "type": "string"
+        },
+        "description": {
+          "title": "Conversion Details",
+          "description": "Free text description of this conversion could be shared here",
+          "type": "string"
+        },
+        "coefficients": {
+          "title": "Coefficients",
+          "description": "A list of any applicable [Coefficient] for this conversion",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Coefficient"
+          }
+        }
+      }
+    },
+    "Coefficient": {
+      "title": "Coefficient",
+      "description": "A coefficient applied in case of the value of prescribed attribute matches",
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Identifier",
+          "description": "An identifier for this coefficient.",
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "value": {
+          "title": "Requirement value",
+          "description": "Value of related 'requirement' or one of available 'options' if applicable received through 'requirementResponse'",
+          "type": [
+            "integer",
+            "number",
+            "null"
+          ]
+        },
+        "minValue": {
+          "title": "Inducative minimum requirement value",
+          "description": "Indicative minimum value of related 'requirement' or one of available 'options' if applicable received through 'requirementResponse'",
+          "type": [
+            "integer",
+            "number",
+            "null"
+          ]
+        },
+        "maxValue": {
+          "title": "Indicative maximum value",
+          "description": "Indicative maximum value of related 'requirement' or one of available 'options' if applicable received through 'requirementResponse'",
+          "type": [
+            "integer",
+            "number",
+            "null"
+          ]
+        },
+        "period": {
+          "title": "Period",
+          "description": "Used to specify a particular [Period] the conversion and its coefficients are applies to",
+          "$ref": "#/definitions/Period"
+        },
+        "coefficient": {
+          "title": "Coefficient",
+          "description": "Precise value that has to be applied for conversion in specific case",
+          "type": [
+            "integer",
+            "number",
+            "null"
+          ]
         }
       }
     }
